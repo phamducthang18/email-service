@@ -44,4 +44,8 @@ jobs:
         run: chmod +x mvnw
 
       - name: Run tests and package
+        env:
+          DB_URL: jdbc:postgresql://localhost:5432/email_service
+          DB_USERNAME: storeuser
+          DB_PASSWORD: storepassword
         run: ./mvnw -B verify
