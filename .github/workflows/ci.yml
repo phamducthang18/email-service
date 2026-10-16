@@ -14,6 +14,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: email_service
+          POSTGRES_USER: storeuser
+          POSTGRES_PASSWORD: storepassword
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U storeuser -d email_service"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
