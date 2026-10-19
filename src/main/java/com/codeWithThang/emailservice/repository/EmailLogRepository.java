@@ -100,7 +100,6 @@ public interface EmailLogRepository extends JpaRepository<EmailLog, Long> {
         WHERE id = :id
         AND status = 'PROCESSING'
         AND updated_at < CURRENT_TIMESTAMP - INTERVAL '5 minutes'
-        AND attempts < 5
         """, nativeQuery = true)
     int recoverStuckProcessing(@Param("id") Long id);
 }

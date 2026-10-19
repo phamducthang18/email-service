@@ -49,7 +49,7 @@ public class EmailService {
 
             emailLogService.markSent(event.eventId());
             log.info("Welcome email sent successfully to {}", event.email());
-        } catch (MessagingException e) {
+        } catch (MessagingException | MailException e) {
             try {
                 emailLogService.markFailed(
                     event.eventId(),
@@ -61,7 +61,6 @@ public class EmailService {
                 log.error("Failed to persist email failure for event {} ", event.eventId(), ex);
             }
             log.error("Failed to send welcome email to {}: {}", event.email(), e.getMessage());
-            throw new RuntimeException("Failed to send welcome email", e);
         }
     }
 
